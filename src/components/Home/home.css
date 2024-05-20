@@ -12,3 +12,17 @@
   background-color: rgb(128, 128, 201);
   color: white;
 }
+
+.loader {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: auto;
+  text-align: center;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  font-size: 2em;
+}

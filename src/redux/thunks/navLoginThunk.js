@@ -11,7 +11,7 @@ const headers = {
 const checkLoginStatus = createAsyncThunk('CheckLoginStatus', async () => {
   let status = false;
   const response = await axios.get(
-    'https://petbnb.onrender.com/current_user',
+    'http://127.0.0.1:3001/current_user',
     headers,
   );
   if (response.status === 200) {

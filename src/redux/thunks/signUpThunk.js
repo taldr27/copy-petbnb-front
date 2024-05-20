@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import axios from 'axios';
 
 const signUpUser = createAsyncThunk('signup', async (credentials) => {
-  await fetch('https://petbnb.onrender.com/signup', {
+  await fetch('http://127.0.0.1:3001/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

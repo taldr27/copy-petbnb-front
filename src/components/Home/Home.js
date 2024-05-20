@@ -18,18 +18,20 @@ const AllRooms = () => {
 
   const [typeOfPetFilter, setTypeOfPetFilter] = useState('');
   const [sizeOfPetFilter, setSizeOfPetFilter] = useState('');
-
   const [searchText, setSearchText] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const hash = {};
   users.map((user) => Object.assign(hash, { [user.id]: user.name }));
 
   useEffect(() => {
-    dispatch(fetchRooms());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchUsers());
+    const loadData = async () => {
+      setLoading(true);
+      await dispatch(fetchRooms());
+      await dispatch(fetchUsers());
+      setLoading(false);
+    };
+    loadData();
   }, [dispatch]);
 
   let carouselRooms = [];
@@ -92,22 +94,30 @@ const AllRooms = () => {
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <h1 className="text-center">Best rated rooms!</h1>
-      <Carousel className="w-75">{renderedRooms}</Carousel>
-      <div className="d-flex flex-column">
-        <div className="row align-items-center m-3 justify-content-center">
-          <SearchBar onChange={handleSearch} />
-          <RoomFilters
-            typeOfPetFilter={typeOfPetFilter}
-            setTypeOfPetFilter={setTypeOfPetFilter}
-            sizeOfPetFilter={sizeOfPetFilter}
-            setSizeOfPetFilter={setSizeOfPetFilter}
-          />
+      {loading ? (
+        <div className="loader">
+          <span>Loading...</span>
         </div>
-        <div className="container-xl p-2">
-          <RenderedRooms rooms={filteredRooms} />
-        </div>
-      </div>
+      ) : (
+        <>
+          <h1 className="text-center">Best rated rooms!</h1>
+          <Carousel className="w-75">{renderedRooms}</Carousel>
+          <div className="d-flex flex-column">
+            <div className="row align-items-center m-3 justify-content-center">
+              <SearchBar onChange={handleSearch} />
+              <RoomFilters
+                typeOfPetFilter={typeOfPetFilter}
+                setTypeOfPetFilter={setTypeOfPetFilter}
+                sizeOfPetFilter={sizeOfPetFilter}
+                setSizeOfPetFilter={setSizeOfPetFilter}
+              />
+            </div>
+            <div className="container-xl p-2">
+              <RenderedRooms rooms={filteredRooms} />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

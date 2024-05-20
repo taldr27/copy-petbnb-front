@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const url = 'https://petbnb.onrender.com/reservations';
+const url = 'http://127.0.0.1:3001/reservations';
 const headers = {
   headers: {
     ContentType: 'application/json',
@@ -20,6 +20,6 @@ export const createReservation = createAsyncThunk('createReservations', async (b
 });
 
 export const deleteReservation = createAsyncThunk('deleteReservation', async (reservationId) => {
-  const response = await axios.delete(`https://petbnb.onrender.com/pets/${reservationId}`, headers);
+  const response = await axios.delete(`http://127.0.0.1:3001/pets/${reservationId}`, headers);
   return response.data;
 });

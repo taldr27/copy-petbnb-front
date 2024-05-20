@@ -9,7 +9,7 @@ const headers = {
 };
 
 const deletePetRoom = createAsyncThunk('deleteRoom', async (petRoomId) => {
-  const response = await axios.delete(`https://petbnb.onrender.com/pet_rooms/${petRoomId}`, headers);
+  const response = await axios.delete(`http://127.0.0.1:3001/pet_rooms/${petRoomId}`, headers);
   return response.data;
 });
 
