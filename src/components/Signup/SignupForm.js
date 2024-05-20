@@ -27,8 +27,8 @@ const SignUpForm = () => {
 
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit} className="login-form">
-        <h1>Create your account</h1>
+      <form onSubmit={handleSubmit} className="login-form" autoComplete="off">
+        <h2>Create your account</h2>
         <label htmlFor="name" id="name">
           Name
           <input
@@ -46,7 +46,6 @@ const SignUpForm = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        <br />
         <label htmlFor="password" id="password">
           Password
           <input

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -17,12 +17,17 @@ import {
   FaSignInAlt,
   FaSignOutAlt,
 } from 'react-icons/fa';
-import checkLoginStatus from '../../redux/thunks/navLoginThunk';
 import logo from '../../images/logo-no-background.png';
 import logout from '../../redux/thunks/navLogoutThunk';
 
 const NavBar = () => {
   const [windowDimensions, setWindowDimensions] = useState(null);
+  const auth = useSelector((state) => state.auth.token);
+  const isMobile = windowDimensions <= 768;
+  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setWindowDimensions(window.innerWidth);
   }, []);
@@ -33,17 +38,8 @@ const NavBar = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const isMobile = windowDimensions <= 768;
-  const dispatch = useDispatch();
-  const auth = localStorage.getItem('token');
-  useEffect(() => {
-    dispatch(checkLoginStatus());
-  }, [dispatch]);
-  const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
   const handleLogoutClick = () => {
     dispatch(logout());
-    localStorage.removeItem('token');
     navigate('/');
   };
 
@@ -78,9 +74,6 @@ const NavBar = () => {
         break;
       case 'signup':
         navigate('/signup');
-        break;
-      case 'logout':
-        handleLogoutClick();
         break;
       default:
         break;
@@ -238,7 +231,6 @@ const NavBar = () => {
                       eventKey="logout"
                       onClick={handleLogoutClick}
                       className="navitem-mobile"
-                      onSelect={handleNavItemSelect}
                     >
                       <NavIcon>
                         <FaSignOutAlt className="icon-nav" />
