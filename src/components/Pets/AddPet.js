@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -16,13 +17,11 @@ const AddPet = (props) => {
   const currentUser = useSelector((state) => state.user.data);
   const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
 
-  // get current user info
   useEffect(() => {
     dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-  // create a function to handle the response message
-  const responseMessage = (message, status) => {
+  const responseMessage = (message, status, duration = 2000) => {
     const wrapper = document.createElement('div');
     wrapper.innerHTML = [
       `<div class="alert alert-${status} alert-dismissible" role="alert">`,
@@ -31,7 +30,11 @@ const AddPet = (props) => {
       '</div>',
     ].join('');
 
-    alertPlaceholder.append(wrapper);
+    alertPlaceholder.appendChild(wrapper);
+
+    setTimeout(() => {
+      wrapper.remove();
+    }, duration);
   };
 
   const handleSubmit = () => {
@@ -56,8 +59,12 @@ const AddPet = (props) => {
     formData.append('pet[hair_length]', hairLength);
     formData.append('pet[allergies]', allergies);
     formData.append('pet[extra_information]', extraInformation);
-    formData.append('pet[image]', image);
     formData.append('pet[user_id]', currentUser.id);
+
+    if (image) {
+      formData.append('pet[image]', image);
+    }
+
     dispatch(createPet(formData)).then((response) => {
       if (response.error) {
         responseMessage(response.error.message, 'danger');
@@ -66,11 +73,9 @@ const AddPet = (props) => {
         dispatch(fetchPets());
       }
       close();
-      // make component reload by navigating back to the component in case user is in path /my-pets
       if (window.location.pathname === '/my-pets') {
         navigate('/my-pets');
       } else {
-        // click on make reservation button to get back to the modal
         document.getElementById('make-reservation-button').click();
       }
     });
@@ -80,50 +85,71 @@ const AddPet = (props) => {
     <Modal>
       <ModalHeader title="Add Pet" close={close} />
       <ModalBody>
-        <div>
-          <p className="m-0">Name:</p>
-          <input className="mb-2" id="name" type="text" />
-          <p className="m-0">Type:</p>
-          {/* give size options to user */}
-          <select className="mb-2" id="pet-type">
-            <option className="mb-2">Select type</option>
-            {['dog', 'cat'].map((petType) => (
-              <option key={petType} value={petType}>
-                {petType}
-              </option>
-            ))}
-          </select>
-          <p className="m-0">Date of birth:</p>
-          <input className="mb-2" id="date-of-birth" type="date" />
-          <p className="m-0">Size:</p>
-          {/* give size options to user */}
-          <select className="mb-2" id="pet-size">
-            {['small', 'medium', 'large'].map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
-          <p className="m-0">Breed:</p>
-          <input className="mb-2" id="breed" type="text" />
-          <p className="m-0">Gender:</p>
-          <select className="mb-2" id="gender">
-            {['male', 'female'].map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
-          <p className="m-0">Hair Length:</p>
-          <input className="mb-2" id="hair-length" type="text" />
-          <p className="m-0">Allergies:</p>
-          <input className="mb-2" id="allergies" type="text" />
-          <p className="m-0">Extra Information:</p>
-          <input className="mb-2" id="extra-information" type="text" />
-
-          <p className="m-0">Upload image:</p>
-          <input id="image" type="file" accept="image/*" />
-        </div>
+        <form className="row g-3">
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="name">Name:</label>
+              <input className="form-control mb-2" id="name" type="text" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="pet-type">Type:</label>
+              <select className="form-control mb-2" id="pet-type">
+                <option disabled selected>Select type</option>
+                {['dog', 'cat'].map((petType) => (
+                  <option key={petType} value={petType}>
+                    {petType}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="date-of-birth">Date of birth:</label>
+              <input className="form-control mb-2" id="date-of-birth" type="date" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="pet-size">Size:</label>
+              <select className="form-control mb-2" id="pet-size">
+                {['Small', 'Medium', 'Large'].map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="hair-length">Hair Length (Optional):</label>
+              <input className="form-control mb-2" id="hair-length" type="text" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="extra-information">Extra Information (Optional):</label>
+              <input className="form-control mb-2" id="extra-information" type="text" />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="form-group">
+              <label htmlFor="breed">Breed:</label>
+              <input className="form-control mb-2" id="breed" type="text" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="gender">Gender:</label>
+              <select className="form-control mb-2" id="gender">
+                {['Male', 'Female'].map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="allergies">Allergies (Optional):</label>
+              <input className="form-control mb-2" id="allergies" type="text" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="image">Upload image (Optional):</label>
+              <input className="form-control-file mb-2" id="image" type="file" accept="image/*" />
+            </div>
+          </div>
+        </form>
       </ModalBody>
       <ModalFooter buttonName="Add Pet" buttonFunc={handleSubmit} close={close} />
     </Modal>

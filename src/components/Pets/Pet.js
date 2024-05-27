@@ -13,7 +13,7 @@ const Pet = ({ pet }) => {
     ModalService.open(EditPet, { pet });
   };
 
-  const responseMessage = (message, status) => {
+  const responseMessage = (message, status, duration = 2000) => {
     const wrapper = document.createElement('div');
     wrapper.innerHTML = [
       `<div class="alert alert-${status} alert-dismissible" role="alert">`,
@@ -22,7 +22,11 @@ const Pet = ({ pet }) => {
       '</div>',
     ].join('');
 
-    alertPlaceholder.append(wrapper);
+    alertPlaceholder.appendChild(wrapper);
+
+    setTimeout(() => {
+      wrapper.remove();
+    }, duration);
   };
 
   const handleDeletePet = () => {
@@ -38,9 +42,9 @@ const Pet = ({ pet }) => {
 
   return (
     <li className="card mb-3 text-startc col-sm-5 col-12">
-      <div className="row g-0">
-        <div className="col-md-5">
-          <img src={pet.image_url} className="img-fluid rounded-start" alt="..." />
+      <div className="row g-0" style={{ minHeight: '215px', height: '100%' }}>
+        <div className="col-md-5" style={{ minHeight: '215px', maxHeight: '215px', overflow: 'hidden' }}>
+          <img src={pet.image_url} className="img-fluid rounded-start" alt="Pet" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
         <div className="col-md-7">
           <div className="card-body">
@@ -48,17 +52,17 @@ const Pet = ({ pet }) => {
               {pet.name}
             </h5>
             <div className="card-text d-flex gap-3">
-              <p>breed</p>
+              <p>Breed:</p>
               <p>{pet.breed}</p>
             </div>
             <div className="card-text d-flex gap-3">
-              <p>date of birth</p>
+              <p>Date of Birth:</p>
               <p>{pet.date_of_birth}</p>
             </div>
           </div>
           <div className="card-footer text-muted text-center">
-            <button onClick={openModalEditPet} type="button" className="btn btn-primary m-4">Edit pet</button>
-            <button onClick={handleDeletePet} type="button" className="btn btn-primary m-4">Delete</button>
+            <button onClick={openModalEditPet} type="button" className="btn btn-primary m-2">Edit Pet</button>
+            <button onClick={handleDeletePet} type="button" className="btn btn-danger m-2">Delete</button>
           </div>
         </div>
       </div>

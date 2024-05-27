@@ -5,7 +5,7 @@ const ModalHeader = (props) => {
   return (
     <div className="modal-header">
       <h2>{title}</h2>
-      <button onClick={close} type="button" className="btn btn-primary">X</button>
+      <button onClick={close} type="button" className="btn btn-danger">X</button>
     </div>
   );
 };

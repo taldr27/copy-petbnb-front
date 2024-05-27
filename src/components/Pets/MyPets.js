@@ -19,7 +19,7 @@ const MyPets = () => {
   };
 
   return (
-    <div>
+    <div className="my-pets">
       <button onClick={openModalAddPet} type="button" className="btn btn-primary m-4">New Pet</button>
       <h1>My Pets</h1>
       <ul className="container-xl d-flex flex-wrap justify-content-center gap-2">

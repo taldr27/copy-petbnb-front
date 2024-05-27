@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
@@ -175,7 +174,7 @@ const NavBar = () => {
             className="nav-bar-mobile"
             expanded={isOpen}
           >
-            <Container>
+            <>
               <Navbar.Toggle
                 aria-controls="responsive-nav-bar"
                 onClick={handleToggleClick}
@@ -265,7 +264,7 @@ const NavBar = () => {
                   )}
                 </Nav>
               </Navbar.Collapse>
-            </Container>
+            </>
           </Navbar>
         </div>
       )}

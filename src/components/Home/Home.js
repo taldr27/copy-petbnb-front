@@ -93,7 +93,7 @@ const AllRooms = () => {
   }
 
   return (
-    <div className="d-flex flex-column align-items-center">
+    <div className="d-flex flex-column align-items-center home">
       {loading ? (
         <div className="loader">
           <span>Loading...</span>

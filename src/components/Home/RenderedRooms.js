@@ -26,7 +26,7 @@ const RenderedRooms = ({ rooms }) => {
       >
         <div className="row g-0">
           <div className="col-md-5">
-            <img src={room.attributes.image_url} alt="room-img" className="img-fluid" />
+            <img src={room.attributes.image_url} alt="room-img" className="img-fluid" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div className="col-md-7 p-3">
             <h5 className="card-title">{room.attributes.name}</h5>

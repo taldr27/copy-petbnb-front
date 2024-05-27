@@ -8,6 +8,7 @@ import MyRooms from './PetRooms/MyRooms';
 import MyPets from './Pets/MyPets';
 import MyReservations from './Reservations/MyReservations';
 import ShowRoom from './PetRooms/ShowRoom';
+import PrivateRoute from './PrivateRoute';
 import './app.css';
 
 const App = () => (
@@ -19,10 +20,10 @@ const App = () => (
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUpForm />} />
-        <Route path="/pet_room/:id" element={<ShowRoom />} />
-        <Route path="/my-rooms" element={<MyRooms />} />
-        <Route path="/my-pets" element={<MyPets />} />
-        <Route path="/my-reservations" element={<MyReservations />} />
+        <Route path="/pet_room/:id" element={<PrivateRoute><ShowRoom /></PrivateRoute>} />
+        <Route path="/my-rooms" element={<PrivateRoute><MyRooms /></PrivateRoute>} />
+        <Route path="/my-pets" element={<PrivateRoute><MyPets /></PrivateRoute>} />
+        <Route path="/my-reservations" element={<PrivateRoute><MyReservations /></PrivateRoute>} />
       </Routes>
     </div>
   </div>
