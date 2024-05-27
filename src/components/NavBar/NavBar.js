@@ -31,6 +31,7 @@ const NavBar = () => {
   useEffect(() => {
     setWindowDimensions(window.innerWidth);
   }, []);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowDimensions(window.innerWidth);
@@ -38,6 +39,7 @@ const NavBar = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
   const handleLogoutClick = () => {
     dispatch(logout());
     navigate('/');
@@ -153,7 +155,7 @@ const NavBar = () => {
                 </NavItem>
               )}
               {auth && (
-                <NavItem eventKey="logout" onClick={handleLogoutClick}>
+                <NavItem onClick={handleLogoutClick}>
                   <NavIcon>
                     <FaSignOutAlt className="icon-nav" />
                   </NavIcon>
@@ -228,7 +230,6 @@ const NavBar = () => {
                   )}
                   {auth && (
                     <NavItem
-                      eventKey="logout"
                       onClick={handleLogoutClick}
                       className="navitem-mobile"
                     >

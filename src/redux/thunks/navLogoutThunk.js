@@ -11,17 +11,12 @@ const headers = {
 };
 
 const logout = createAsyncThunk('user/logout', async (_, { dispatch }) => {
-  try {
-    const response = await axios.delete('http://127.0.0.1:3001/logout', headers);
-    if (response.status === 200) {
-      dispatch(clearToken());
-      return true;
-    }
-    return response;
-  } catch (error) {
-    console.error('Error during logout:', error);
-    return error;
+  const response = await axios.delete('http://127.0.0.1:3001/logout', headers);
+  if (response.status === 200) {
+    dispatch(clearToken());
+    return true;
   }
+  return response;
 });
 
 export default logout;
