@@ -60,6 +60,7 @@ a {
 
 .new-user {
   font-size: 18px;
+  max-width: 215px;
 }
 
 label {

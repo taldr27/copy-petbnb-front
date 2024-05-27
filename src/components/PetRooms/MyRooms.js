@@ -51,25 +51,40 @@ const MyRooms = () => {
     <div key={d.attributes.id} className="card mb-3 col-sm-5 col-11">
       <div className="row g-0">
         <div className="col-md-6">
-          <img src={d.attributes.image_url} alt="room-img" className="img-fluid rounded-start" />
+          <img src={d.attributes.image_url} alt="room-img" className="img-fluid rounded-start room-image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
         <div className="col-md-6 ps-1">
-          <h5 className="card-title">{d.attributes.name}</h5>
-          <p className="card-text">
-            Price:
-            {d.attributes.price}
-          </p>
-          <p className="card-text">
-            Pet type:
-            {d.attributes.type_of_pet}
-          </p>
-          <p className="card-text">
-            Pet size:
-            {d.attributes.max_size_accepted}
-          </p>
-          <p className="card-text"><small className="text-muted">Rating:</small></p>
+          <div className="card-body">
+            <h5 className="card-title">{d.attributes.name}</h5>
+            <div className="card-text">
+              <p className="mb-1">
+                <strong>Price:</strong>
+                {' '}
+                {d.attributes.price}
+              </p>
+              <p className="mb-1">
+                <strong>Pet type:</strong>
+                {' '}
+                {d.attributes.type_of_pet}
+              </p>
+              <p className="mb-1">
+                <strong>Pet size:</strong>
+                {' '}
+                {d.attributes.max_size_accepted}
+              </p>
+              <p className="mb-1">
+                <small className="text-muted">
+                  <strong>Rating:</strong>
+                  {' '}
+                  {d.attributes.rating}
+                </small>
+              </p>
+            </div>
+          </div>
+          <div className="card-footer text-muted text-center">
+            <button onClick={() => deleteRoom(d.id)} type="button" className="btn btn-danger m-2">Delete</button>
+          </div>
         </div>
-        <button onClick={() => deleteRoom(d.id)} type="button" className="btn btn-primary m-4">Delete</button>
       </div>
     </div>
   ));

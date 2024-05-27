@@ -47,6 +47,13 @@ const LoginForm = () => {
         <button type="submit">Login</button>
       </form>
       <div className="new-user">
+        <span>
+          If you want to test the app use:
+        </span>
+        <p>
+          Email: test@mail.com
+          Password: user123
+        </p>
         <p>Don&apos;t have an account?</p>
         <a href="/signup">Sign Up</a>
       </div>

@@ -35,7 +35,10 @@ const AddRoom = ({ close }) => {
     formData.append('pet_room[price]', price);
     formData.append('pet_room[type_of_pet]', typeOfPet);
     formData.append('pet_room[max_size_accepted]', maxSize);
-    formData.append('pet_room[image]', image);
+
+    if (image) {
+      formData.append('pet[image]', image);
+    }
 
     dispatch(addRoomThunk(formData)).then((response) => {
       if (response.error) {
